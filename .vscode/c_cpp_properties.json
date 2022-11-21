@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "RP2040",
+            "intelliSenseMode": "macos-gcc-arm",
+            "compilerPath": "/Applications/ARM/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "compileCommands": "./build/compile_commands.json",
+            "browse": {
+                "path": ["${workspaceFolder}"],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
