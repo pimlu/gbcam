@@ -1,4 +1,6 @@
-RP2040 gameboy camera
+## RP2040 gameboy camera project - WIP
+
+Currently only contains a simple driver for the SHARP LS013B7DH05, which I am going to play around with as a "viewfinder".
 
 pinout:
 ```
