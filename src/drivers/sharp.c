@@ -24,7 +24,7 @@ static const uint8_t revTable[] = {
   0x0F, 0x8F, 0x4F, 0xCF, 0x2F, 0xAF, 0x6F, 0xEF, 0x1F, 0x9F, 0x5F, 0xDF, 0x3F, 0xBF, 0x7F, 0xFF
 };
 
-// forced to use MSB first SPI
+// forced to use MSB first SPI, sharp is LSB first. so reverse the bits
 uint8_t rev(uint8_t byte) {
     return revTable[byte];
 }
@@ -53,7 +53,7 @@ void draw(bool vcom) {
     *buf++ = rev(0x1 | (vcom ? 0x2 : 0));
     for (uint8_t i=1; i<= SHARP_H; i++) {
         *buf++ = rev(i);
-        for (int j=0; j<DATA_ROW_W; j++) {
+        for (int j=0; j<SHARP_ROW_W; j++) {
             *buf++ = rev(vcom ? 0xff : 0);
         }
         *buf++ = 0;

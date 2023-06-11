@@ -16,12 +16,15 @@
 #define SHARP_H 168
 #define SHARP_W 144
 
-// https://www.sharpsde.com/fileadmin/products/Displays/2016_SDE_App_Note_for_Memory_LCD_programming_V1.3.pdf
-#define DATA_ROW_W (SHARP_W/8)
-#define LINE_W (1 + DATA_ROW_W + 1)
+#define SHARP_ROW_W (SHARP_W/8)
+#define SHARP_PIXELS (SHARP_H * SHARP_ROW_W)
 
-#define CMD_ROW_W (1 + LINE_W + 1)
-#define CMD_W (1 + SHARP_H * LINE_W + 1)
+// https://www.sharpsde.com/fileadmin/products/Displays/2016_SDE_App_Note_for_Memory_LCD_programming_V1.3.pdf
+
+#define CMD_LINE_W (1 + SHARP_ROW_W + 1)
+
+#define CMD_ROW_W (1 + CMD_LINE_W + 1)
+#define CMD_W (1 + SHARP_H * CMD_LINE_W + 1)
 
 void spi_sharp_init();
 

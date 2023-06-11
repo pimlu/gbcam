@@ -19,12 +19,14 @@ add_compile_options(-Wall)
 
 
 add_executable(gbcam
-        src/gbcam.c
-        src/sharp.c
+        src/main.c
+        src/utils.c
+        src/drivers/gbcam.c
+        src/drivers/sharp.c
         )
 
 # pull in common dependencies
-target_link_libraries(gbcam pico_stdlib hardware_spi)
+target_link_libraries(gbcam pico_stdlib pico_multicore hardware_adc hardware_pwm hardware_spi)
 
 # create map/bin/hex/uf2 file etc.
 pico_add_extra_outputs(gbcam)

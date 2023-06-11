@@ -1,7 +1,5 @@
 {
     "files.associations": {
-        "binary_info.h": "c",
-        "stdio.h": "c",
-        "stdlib.h": "c"
+        "*.h": "c",
     }
 }
