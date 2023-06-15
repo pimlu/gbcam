@@ -18,13 +18,13 @@ Adafruit has a [wonderful blog](https://blog.adafruit.com/2021/05/11/how-to-tone
 19 - spi0 TX
 1  - spi0 CSN
 16 - (reserved for NeoPixel)
-29 - gbcam START
-27 - gbcam SIN
-26 - gbcam LOAD
-25 - gbcam Xrst
-24 - gbcam Xck
-22 - gbcam RESET
-31 - adc0 gbcam READ
+2 - gbcam START
+3 - gbcam SIN
+7 - gbcam LOAD
+8 - gbcam XCK
+9 - gbcam RESET
+10 - gbcam READ
+26 - adc0 gbcam VOUT
 ```
 
 ## Component docs

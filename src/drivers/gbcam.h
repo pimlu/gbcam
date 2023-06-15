@@ -2,16 +2,15 @@
 
 #include <stdio.h>
 
-#define GBCAM_START 29
-#define GBCAM_SIN 27
-#define GBCAM_LOAD 26
-#define GBCAM_XRST 25
-#define GBCAM_XCK 24
-#define GBCAM_RESET 22
-#define GBCAM_READ 31
-#define GBCAM_VOUT 28
+#define GBCAM_START 2
+#define GBCAM_SIN 3
+#define GBCAM_LOAD 7
+#define GBCAM_XCK 8
+#define GBCAM_RESET 9
+#define GBCAM_READ 10
+#define GBCAM_VOUT 26
 
-#define GBCAM_VOUT_ADC 2
+#define GBCAM_VOUT_ADC 0
 
 #define GBCAM_H 128
 #define GBCAM_W 128
