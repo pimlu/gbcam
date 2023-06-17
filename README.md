@@ -24,6 +24,7 @@ Adafruit has a [wonderful blog](https://blog.adafruit.com/2021/05/11/how-to-tone
 8 - gbcam XCK
 9 - gbcam RESET
 10 - gbcam READ
+11 - SN74LVC245A OE pin
 26 - adc0 gbcam VOUT
 ```
 

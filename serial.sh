@@ -23,6 +23,7 @@ function wait_for_tty() {
 while true; do
     echo "waiting for tty..."
     tty=`wait_for_tty`
+    clear
     set +e
     picocom $tty -b 115200
     rc=$?

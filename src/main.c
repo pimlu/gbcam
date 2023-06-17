@@ -60,6 +60,7 @@ int main() {
 
     // to wait for serial to come up
     sleep_ms(1000);
+    printf("hello\n");
 
     // snap the camera on core1 since core0 is busy with USB/serial interrupts
     multicore_launch_core1(camera_snap);

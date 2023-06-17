@@ -1,0 +1,24 @@
+<textarea id="txt"></textarea>
+<canvas id="c" width="128" height="128" style="width:512px;height:512px;border: 1px solid grey;"></canvas>
+<script>
+let canvas = document.getElementById('c');
+let txt = document.getElementById('txt');
+let ctx = canvas.getContext('2d');
+txt.onchange = () => {
+    let w = 128, h = 128;
+    let dump = txt.value.split('\n');
+    let dumpIdx = dump.findLastIndex(l => l === 'dumped');
+    if (dumpIdx === -1) return;
+    let hex = dump[dumpIdx-1].split(' ');
+    let data = hex.map((s) => parseInt(s, 16)).filter(Number.isFinite);
+
+    console.log('found data', hex, data);
+
+    const buff = new Uint8ClampedArray(w*h * 4);
+    let pxData = data.flatMap(d => [d,d,d,255]);
+    for (let i=0; i<buff.length; i++) buff[i] = pxData[i];
+
+    let img = new ImageData(buff, w, h);
+    ctx.putImageData(img, 0, 0);
+}
+</script>
