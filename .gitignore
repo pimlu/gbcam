@@ -1,3 +1,7 @@
 build/
 .DS_Store
 webcam-backups/
+*.csv
+*.xml
+gerbers/
+*.zip
