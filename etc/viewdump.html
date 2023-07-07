@@ -4,7 +4,7 @@
 let canvas = document.getElementById('c');
 let txt = document.getElementById('txt');
 let ctx = canvas.getContext('2d');
-txt.onchange = () => {
+txt.oninput = () => {
     let w = 128, h = 128;
     let dump = txt.value.split('\n');
     let dumpIdx = dump.findLastIndex(l => l === 'dumped');

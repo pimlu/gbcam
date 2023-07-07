@@ -5,3 +5,4 @@ webcam-backups/
 *.xml
 gerbers/
 *.zip
+.config.local.sh
