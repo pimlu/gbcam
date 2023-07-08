@@ -23,10 +23,20 @@ add_executable(gbcam
         src/utils.c
         src/drivers/gbcam.c
         src/drivers/sharp.c
+        src/drivers/usb/usb_serial.c
+        src/drivers/usb/usb_descriptors.c
         )
 
+# Make sure TinyUSB can find tusb_config.h
+target_include_directories(gbcam PUBLIC
+        ${CMAKE_CURRENT_LIST_DIR}/src/drivers/usb/include)
+
 # pull in common dependencies
-target_link_libraries(gbcam pico_stdlib pico_multicore hardware_adc hardware_pwm hardware_spi)
+target_link_libraries(gbcam
+        pico_stdlib
+        tinyusb_device tinyusb_board
+        pico_multicore hardware_adc hardware_pwm hardware_spi
+        )
 
 # create map/bin/hex/uf2 file etc.
 pico_add_extra_outputs(gbcam)
