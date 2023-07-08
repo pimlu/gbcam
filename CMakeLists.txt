@@ -26,6 +26,7 @@ add_executable(gbcam
         src/drivers/usb/usb_serial.c
         src/drivers/usb/usb_descriptors.c
         src/tasks/debug_led.c
+        src/tasks/video.c
         )
 
 # Make sure TinyUSB can find tusb_config.h

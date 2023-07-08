@@ -18,6 +18,7 @@
 #include "drivers/usb/usb_serial.h"
 
 #include "tasks/debug_led.h"
+#include "tasks/video.h"
 
 #include "utils.h"
 
@@ -59,6 +60,7 @@ int main() {
     // can't let main return otherwise it breaks core1
     while (true) {
         led_blinking_task();
+        video_task();
 
         tud_task(); // tinyusb device task
     }
