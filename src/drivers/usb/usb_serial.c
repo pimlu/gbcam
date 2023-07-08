@@ -1,6 +1,8 @@
 #include "usb_serial.h"
 
 #include "pico/stdlib.h"
+
+#include "bsp/board.h"
 #include "tusb.h"
 
 // idk why this is necessary, but it seems sleeping by itself is not enough

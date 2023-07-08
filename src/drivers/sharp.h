@@ -5,13 +5,7 @@
 #include "pico/binary_info.h"
 #include "hardware/spi.h"
 
-#define spi_sharp spi0
-
-
-#define SHARP_RX 20
-#define SHARP_SCK 6
-#define SHARP_TX 19
-#define SHARP_CSN 1
+#include "../pinout.h"
 
 #define SHARP_H 168
 #define SHARP_W 144
