@@ -12,7 +12,7 @@
 
 #define FRAME_WIDTH   128
 #define FRAME_HEIGHT  128
-#define FRAME_RATE    10
+#define FRAME_RATE    6
 
 // has to be after all the CDC endpoint numbers
 #define EPNUM_VIDEO_IN    0x84

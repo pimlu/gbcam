@@ -21,6 +21,7 @@ add_compile_options(-Wall)
 add_executable(gbcam
         src/main.c
         src/utils.c
+        src/core1.c
         src/drivers/gbcam.c
         src/drivers/sharp.c
         src/drivers/usb/usb_serial.c

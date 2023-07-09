@@ -17,7 +17,7 @@ static unsigned interval_ms = 1000 / FRAME_RATE;
 
 /* YUY2 frame buffer */
 static uint8_t frame_buffer[FRAME_WIDTH * FRAME_HEIGHT * 16 / 8];
-static void fill_color_bar(uint8_t *buffer, unsigned start_position)
+static void __attribute__((unused))fill_color_bar(uint8_t *buffer, unsigned start_position)
 {
   /* EBU color bars
    * See also https://stackoverflow.com/questions/6939422 */
@@ -55,6 +55,22 @@ static void fill_color_bar(uint8_t *buffer, unsigned start_position)
   }
 }
 
+
+static void initSharedBuffer() {
+    static_assert(FRAME_WIDTH == GBCAM_W && FRAME_HEIGHT == GBCAM_H);
+    for (uint i = 0; i < GBCAM_H * GBCAM_W; i++) {
+        frame_buffer[2*i]     = 0;
+        frame_buffer[2*i + 1] = 128;
+    }
+}
+
+static void copySharedBuffer() {
+    static_assert(FRAME_WIDTH == GBCAM_W && FRAME_HEIGHT == GBCAM_H);
+    for (uint i = 0; i < GBCAM_H * GBCAM_W; i++) {
+        frame_buffer[2*i] = sharedBuffer.data[i];
+    }
+}
+
 void video_task(void)
 {
   static unsigned start_ms = 0;
@@ -70,18 +86,19 @@ void video_task(void)
     already_sent = 1;
     start_ms = board_millis();
     tx_busy = 1;
-#ifdef CFG_EXAMPLE_VIDEO_READONLY
-    tud_video_n_frame_xfer(0, 0, (void*)&frame_buffer[(frame_num % (FRAME_WIDTH / 2)) * 4],
-                           FRAME_WIDTH * FRAME_HEIGHT * 16/8);
-#else
-    fill_color_bar(frame_buffer, frame_num);
+    initSharedBuffer();
+    // fill_color_bar(frame_buffer, frame_num);
     tud_video_n_frame_xfer(0, 0, (void*)frame_buffer, FRAME_WIDTH * FRAME_HEIGHT * 16/8);
-#endif
   }
 
   unsigned cur = board_millis();
   if (cur - start_ms < interval_ms) return; // not enough time
   if (tx_busy) return;
+
+  if (sharedBuffer.phase != SNAPPED) return;
+  copySharedBuffer();
+  sharedBuffer.phase = SNAP_READY;
+
   start_ms += interval_ms;
   static unsigned prev_ms = 0;
 
@@ -89,13 +106,8 @@ void video_task(void)
   prev_ms = cur;
 
   tx_busy = 1;
-#ifdef CFG_EXAMPLE_VIDEO_READONLY
-  tud_video_n_frame_xfer(0, 0, (void*)&frame_buffer[(frame_num % (FRAME_WIDTH / 2)) * 4],
-                         FRAME_WIDTH * FRAME_HEIGHT * 16/8);
-#else
-  fill_color_bar(frame_buffer, frame_num);
+  //  fill_color_bar(frame_buffer, frame_num);
   tud_video_n_frame_xfer(0, 0, (void*)frame_buffer, FRAME_WIDTH * FRAME_HEIGHT * 16/8);
-#endif
 }
 
 void tud_video_frame_xfer_complete_cb(uint_fast8_t ctl_idx, uint_fast8_t stm_idx)

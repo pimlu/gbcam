@@ -20,32 +20,17 @@
 #include "tasks/debug_led.h"
 #include "tasks/video.h"
 
+#include "core1.h"
 #include "utils.h"
 
-
-// 16KB, kind of brutal but we have way more than that
-static uint8_t cameraData[GBCAM_H * GBCAM_W];
-
-void camera_snap() {
-    printf("init\n");
-    gbcam_init();
-    printf("snap\n");
-
-    gbcam_snap(cameraData);
-    printf("done\n");
-    dump(cameraData, GBCAM_H * GBCAM_W);
-    printf("dumped\n");
-
-    while (true) {
-    }
-}
 
 int main() {
     board_init();
     tusb_init();
     stdio_usb_init();
     tud_task();
-
+    
+    adc_init();
     gpio_init(BOARD_LED);
     gpio_set_dir(BOARD_LED, GPIO_OUT);
 
@@ -54,8 +39,10 @@ int main() {
         tud_task();
     }
     wait_for_serial_hack();
+
+    multicore_launch_core1(core1_main);
     
-    printf("start\n");
+    printf("core0 init\n");
 
     // can't let main return otherwise it breaks core1
     while (true) {
