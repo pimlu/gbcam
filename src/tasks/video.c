@@ -79,6 +79,13 @@ void video_task(void)
   if (!tud_video_n_streaming(0, 0)) {
     already_sent  = 0;
     frame_num     = 0;
+    // if (sharedBuffer.phase == SNAPPED) {
+    //     static bool dumped = 0;
+    //     if (dumped) return;
+    //     dumped = 1;
+    //     dump(sharedBuffer.data, GBCAM_H * GBCAM_W);
+    //     printf("dumped\n");
+    // }
     return;
   }
 
@@ -92,12 +99,16 @@ void video_task(void)
   }
 
   unsigned cur = board_millis();
+  if (sharedBuffer.phase == SNAPPED) {
+    static unsigned prev_copy_ms = 0;
+    copySharedBuffer();
+    sharedBuffer.phase = SNAP_READY;
+    printf("copy latency %d\n", cur - prev_copy_ms);
+    prev_copy_ms = cur;
+  }
+
   if (cur - start_ms < interval_ms) return; // not enough time
   if (tx_busy) return;
-
-  if (sharedBuffer.phase != SNAPPED) return;
-  copySharedBuffer();
-  sharedBuffer.phase = SNAP_READY;
 
   start_ms += interval_ms;
   static unsigned prev_ms = 0;
