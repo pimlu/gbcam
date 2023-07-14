@@ -35,7 +35,7 @@ void gbcam_init() {
 
 // from the datasheet, example image capture mode
 // "Positive image (without dark pixel output)"
-static uint8_t registers[8] = { 0x80, 0x04, 0x40, 0x11, 0xa1, 0x10, 0x01, 0x03 };
+static uint8_t registers[8] = { 0x80, 0x04, 0x20, 0x00, 0xa1, 0x10, 0x01, 0x03 };
 
 static inline void gbclk(bool b) {
     busy_wait_us(1);
@@ -67,6 +67,10 @@ static void __not_in_flash_func(gbcam_reset)() {
 }
 
 static void __not_in_flash_func(gbcam_initregs)() {
+    // static uint8_t x = 0;
+    // registers[2] = x;
+    // registers[3] = x;
+    // printf("#### r[2]: %d", x++);
     for (uint r = 0; r < 8; r++) {
         send_bits(r, 3);
         send_bits(registers[r], 7);
