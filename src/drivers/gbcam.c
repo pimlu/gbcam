@@ -22,9 +22,11 @@ void gbcam_init() {
     gpio_set_dir(GBCAM_RESET, GPIO_OUT);
 
     // the SN74LVC245A is active low, make sure it starts high
+    #ifdef GBCAM_SHIFT_EN
     gpio_put(GBCAM_SHIFT_EN, 1);
     gpio_init(GBCAM_SHIFT_EN);
     gpio_set_dir(GBCAM_SHIFT_EN, GPIO_OUT);
+    #endif
 
     gpio_init(GBCAM_READ);
     gpio_set_dir(GBCAM_READ, GPIO_IN);
@@ -54,7 +56,9 @@ void __not_in_flash_func(send_bits)(uint n, uint bits) {
 }
 
 static void __not_in_flash_func(gbcam_reset)() {
+    #ifdef GBCAM_SHIFT_EN
     gpio_put(GBCAM_SHIFT_EN, 0);
+    #endif
 
     gbclk(0);
     gpio_put(GBCAM_RESET, 0);

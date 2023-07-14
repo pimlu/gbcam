@@ -1,6 +1,10 @@
-## RP2040 gameboy camera project - WIP
+## Gameboy Camera webcam
 
-Currently only contains a simple driver for the SHARP LS013B7DH05, which I am going to play around with as a "viewfinder".
+This project turns the "eyeball" of the Gameboy Camera into a webcam.
+
+## PCB design
+
+Made in KiCad, check out the boards directory.
 
 ## Building, flashing
 
@@ -9,24 +13,13 @@ Run `source setup.sh`, then `./flash.sh`. You can run `./serial.sh` in another t
 ## MacOS eject notifications
 Adafruit has a [wonderful blog](https://blog.adafruit.com/2021/05/11/how-to-tone-down-macos-big-surs-circuitpy-eject-notifications/) showing you how to tone down the annoying "disk ejected unsafely" notifications. It doesn't remove it but at least they auto-dismiss.
 
+## Important assembly note
+
+In rev1, the footprint for the JST connector (the one hooked up to the gameboy camera) is backwards. It needs to be turned 180 - fortunately there is just barely enough clearance that the board still works if you flip it around.
+
 ## Pinout
 
-```
-13 - LED
-20 - (reserved for spi0 RX)
-6  - spi0 SCK
-19 - spi0 TX
-1  - spi0 CSN
-16 - (reserved for NeoPixel)
-2 - gbcam START
-3 - gbcam SIN
-7 - gbcam LOAD
-8 - gbcam XCK
-9 - gbcam RESET
-10 - gbcam READ
-11 - SN74LVC245A OE pin
-26 - adc0 gbcam VOUT
-```
+See pinout.h
 
 ## Component docs
 
