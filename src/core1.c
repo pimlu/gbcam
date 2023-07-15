@@ -51,12 +51,14 @@ void core1_main() {
         int16_t diff = TARGET_BRIGHTNESS - (int16_t) avg;
         int16_t mag = diff >= 0 ? diff : -diff;
 
+        // hand tuned white balance that essentially says, the further we
+        // are away from the target brightness, the more we should adjust
         #define X 20
         int16_t nudge;
         if      (mag > 35*X) nudge = 24;
         else if (mag > 25*X) nudge = 16;
         else if (mag > 15*X) nudge = 12;
-        else if (mag > 10*X)  nudge = 7;
+        else if (mag > 10*X) nudge = 7;
         else if (mag > 3*X)  nudge = 3;
         else if (mag > X)    nudge = 1;
         else                 nudge = 0;
@@ -65,8 +67,10 @@ void core1_main() {
 
         printf("core1 snapped exp=0x%04lx avg=0x%04x nudge=%d\n", exposure, avg, nudge);
 
+        // multiply the exposure by 1 + nudge/64
         exposure = (exposure * (64 + nudge)) >> 6;
 
+        // clamp exposure
         if (exposure < MIN_EXPOSURE) exposure = MIN_EXPOSURE;
         else if (exposure > MAX_EXPOSURE) exposure = MAX_EXPOSURE;
     }
