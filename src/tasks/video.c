@@ -111,10 +111,10 @@ void video_task(void)
   if (tx_busy) return;
 
   start_ms += interval_ms;
-  static unsigned prev_ms = 0;
-
-  printf("latency %d, frame %d\n", cur - prev_ms, frame_num);
-  prev_ms = cur;
+  
+  //static unsigned prev_ms = 0;
+  //printf("latency %d, frame %d\n", cur - prev_ms, frame_num);
+  //prev_ms = cur;
 
   tx_busy = 1;
   //  fill_color_bar(frame_buffer, frame_num);

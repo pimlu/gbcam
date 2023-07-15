@@ -7,4 +7,4 @@
 #define GBCAM_ROW_W (GBCAM_W/8)
 
 void gbcam_init();
-void gbcam_snap(uint8_t *buffer);
+void gbcam_snap(uint8_t *buffer, uint16_t exposure);

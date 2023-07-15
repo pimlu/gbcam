@@ -65,7 +65,7 @@ void led_blinking_task(void)
   start_ms += blink_interval_ms;
 
 
-  printf("writing %d\n", led_state);
+  //printf("writing %d\n", led_state);
 
   gpio_put(BOARD_LED, led_state);
   led_state = 1 - led_state; // toggle

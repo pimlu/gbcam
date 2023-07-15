@@ -70,11 +70,9 @@ static void __not_in_flash_func(gbcam_reset)() {
     gpio_put(GBCAM_RESET, 1);
 }
 
-static void __not_in_flash_func(gbcam_initregs)() {
-    // static uint8_t x = 0;
-    // registers[2] = x;
-    // registers[3] = x;
-    // printf("#### r[2]: %d", x++);
+static void __not_in_flash_func(gbcam_initregs)(uint16_t exposure) {
+    registers[2] = exposure >> 8;
+    registers[3] = exposure & 0xff;
     for (uint r = 0; r < 8; r++) {
         send_bits(r, 3);
         send_bits(registers[r], 7);
@@ -125,9 +123,9 @@ static void __not_in_flash_func(gbcam_readsignal)(uint8_t *buffer) {
     }
 }
 
-void __not_in_flash_func(gbcam_snap)(uint8_t* buffer) {
+void __not_in_flash_func(gbcam_snap)(uint8_t* buffer, uint16_t exposure) {
     gbcam_reset();
-    gbcam_initregs();
+    gbcam_initregs(exposure);
     gbcam_expose();
 
     gbcam_readsignal(buffer);
